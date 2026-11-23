@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>乘法口诀天天练</title>
+<style>
+:root{--ink:#243b8f;--paper:#fbfdff;--line:#cfe0f5;--hl:#ffd84d;--ok:#2e9e5b;--bad:#e2504a;--soft:#eaf3ff}
+*{box-sizing:border-box}
+body{margin:0;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:var(--ink);background:var(--paper);
+background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:16px 14px 40px;text-align:center}
+h1{margin:6px 0 2px;font-size:30px;letter-spacing:2px}
+h1 span{background:linear-gradient(transparent 55%,var(--hl) 55%);padding:0 4px}
+.sub{margin:0 0 16px;font-size:14px;opacity:.75}
+button{font:inherit;color:inherit;cursor:pointer}
+.panel{background:#fff;border:2px solid var(--ink);border-radius:20px;padding:18px 14px}
+.hide{display:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0 16px}
+.chip{padding:6px 14px;border:2px solid var(--ink);border-radius:20px;background:#fff;font-weight:700}
+.chip.on{background:var(--hl)}
+.big{padding:12px 30px;font-size:20px;font-weight:800;background:var(--hl);border:2px solid var(--ink);border-radius:16px}
+.mascot{font-size:64px;line-height:1.1;transition:transform .2s}
+.mascot.pop{transform:scale(1.25) rotate(-6deg)}
+.cnt{font-size:17px;font-weight:700;margin:4px 0 6px}
+.bar{height:12px;background:var(--soft);border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:0 auto 10px;max-width:320px}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.big2{background:#fff;margin-left:8px}
+.eq{display:flex;justify-content:center;align-items:center;gap:8px;margin:10px 0 6px;font-size:40px;font-weight:800}
+.tile{min-width:64px;height:78px;padding:0 8px;border:3px solid var(--ink);border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center}
+.tile.blank{background:#fff;border-style:dashed;color:var(--ink);animation:blink 1.2s infinite}
+.tile.blank.ok{border-style:solid;border-color:var(--ok);background:#e6f7ec;color:var(--ok);animation:none}
+.tile.blank.bad{border-style:solid;border-color:var(--bad);color:var(--bad);animation:none}
+.eq.shake{animation:shake .35s}
+@keyframes blink{50%{background:#fff8d6}}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.msg{min-height:28px;font-size:18px;font-weight:700;margin:6px 0 12px}
+.pad{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:320px;margin:0 auto}
+.pad button{padding:16px 0;font-size:40px;font-weight:800;border:3px solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);background:#fff;transition:transform .08s,box-shadow .08s}
+.pad button:nth-child(4n+1){background:#e8f1ff}.pad button:nth-child(4n+2){background:#fff4cc}.pad button:nth-child(4n+3){background:#e6f7ec}.pad button:nth-child(4n){background:#ffe8e3}
+.pad button:disabled{opacity:.3;box-shadow:none;transform:translateY(4px)}
+.pad button:active{transform:translateY(4px);box-shadow:0 0 0 var(--ink)}
+.stars{font-size:44px;margin:6px 0}
+.wrong{text-align:left;max-width:300px;margin:12px auto;font-size:20px}
+.wrong div{padding:5px 0;border-bottom:1px dashed var(--line)}
+.rule{margin:0 auto 16px;max-width:340px;padding:10px 12px;border:2px dashed var(--bad);border-radius:14px;background:#fff4f2;color:var(--bad);font-weight:800;font-size:17px}
+.stat{font-size:14px;opacity:.8;margin-top:14px}
+@media(max-width:400px){.eq{font-size:32px;gap:5px}.tile{min-width:52px;height:66px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span>乘法口诀</span>天天练</h1>
+  <p class="sub">二年级上册 · 把算式补完整</p>
+
+  <div class="panel" id="start">
+    <div class="mascot">🐰</div>
+    <div class="msg">帮小兔把算式补完整，答对就拔萝卜！</div>
+    <div class="chips" id="chips"></div>
+    <div class="rule">📣 小规则：请大声背出相应的口诀！</div>
+    <button class="big" id="go">开始</button>
+    <div class="stat" id="stat"></div>
+  </div>
+
+  <div class="panel hide" id="quiz">
+    <div class="mascot" id="mascot">🐰</div>
+    <div class="cnt" id="cnt"></div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="eq" id="eq"></div>
+    <div class="msg" id="msg"></div>
+    <div class="pad" id="pad"></div>
+  </div>
+
+  <div class="panel hide" id="end">
+    <div class="mascot" id="emascot">🐰</div>
+    <div class="stars" id="stars"></div>
+    <div class="msg" id="score"></div>
+    <div class="msg" id="comment"></div>
+    <div class="wrong" id="wrong"></div>
+    <button class="big" id="again">再来一次</button>
+    <button class="big big2 hide" id="redo">只练错题</button>
+  </div>
+</div>
+
+<script>
+const CN="零一二三四五六七八九";
+function cnNum(n){const t=Math.floor(n/10),o=n%10;
+  if(n<10)return CN[n];
+  if(t===1)return o?"十"+CN[o]:"一十";
+  return CN[t]+"十"+(o?CN[o]:"");}
+function kou(a,b){const s=Math.min(a,b),l=Math.max(a,b),p=a*b;return CN[s]+CN[l]+(p<10?"得":"")+cnNum(p);}
+function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="zh-CN";u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+function $(id){return document.getElementById(id)}
+
+const RANGES=[["全部口诀",1,9],["1–3 的口诀",1,3],["4–6 的口诀",4,6],["7–9 的口诀",7,9]];
+let range=RANGES[0],N=10;
+function drawChips(){
+  const box=$("chips");box.innerHTML="";
+  RANGES.forEach(r=>{const b=document.createElement("button");b.className="chip"+(r===range?" on":"");b.textContent=r[0];
+    b.onclick=()=>{range=r;drawChips();};box.appendChild(b);});
+}
+function load(){try{return JSON.parse(localStorage.getItem("kouJue3")||"{}")}catch(e){return{}}}
+function save(o){try{localStorage.setItem("kouJue3",JSON.stringify(o))}catch(e){}}
+function today(){return new Date().toISOString().slice(0,10)}
+function showStat(){
+  const d=load();const n=d.date===today()?d.n:0;
+  $("stat").textContent="今天已练 "+n+" 次"+(d.stars?"　累计 ⭐ "+d.stars:"");
+}
+
+let qs=[],idx=0,right=0,wrongs=[],tries=0,locked=false,ans=0,blankEl=null;
+
+function shuffle(arr){for(let k=arr.length-1;k>0;k--){const m=Math.floor(Math.random()*(k+1));[arr[k],arr[m]]=[arr[m],arr[k]];}return arr;}
+function mk(a,b){if(Math.random()<.5)[a,b]=[b,a];return{a,b,blank:Math.floor(Math.random()*3)};}
+function makeQs(){
+  const pool=[];
+  for(let l=range[1];l<=range[2];l++)for(let s=1;s<=l;s++)pool.push([s,l]);
+  qs=[];
+  while(qs.length<N){shuffle(pool).forEach(([a,b])=>{if(qs.length<N)qs.push(mk(a,b));});}
+}
+function start(retry){
+  if(retry===true&&wrongs.length){qs=shuffle(wrongs.map(q=>mk(q.a,q.b)));}else makeQs();
+  idx=0;right=0;wrongs=[];
+  $("start").classList.add("hide");$("end").classList.add("hide");$("quiz").classList.remove("hide");
+  nextQ();
+}
+function nextQ(){
+  locked=false;tries=0;
+  $("cnt").textContent="第 "+(idx+1)+" / "+qs.length+" 题　🥕 "+right;
+  $("barfill").style.width=(idx/qs.length*100)+"%";
+  const {a,b,blank}=qs[idx];
+  const vals=[a,b,a*b];ans=vals[blank];
+  const e=$("eq");e.innerHTML="";
+  const parts=[["n",0],["op","×"],["n",1],["op","="],["n",2]];
+  parts.forEach(([k,v])=>{
+    const d=document.createElement("div");
+    if(k==="op"){d.textContent=v;}
+    else{d.className="tile";
+      if(v===blank){d.classList.add("blank");d.textContent="？";blankEl=d;}else d.textContent=vals[v];}
+    e.appendChild(d);
+  });
+  $("msg").textContent="";$("msg").style.color="";
+  $("mascot").textContent="🐰";
+  const pd=$("pad");pd.innerHTML="";
+  options(blank,a,b).forEach(n=>{const bt=document.createElement("button");bt.textContent=n;bt.onclick=()=>pick(n,bt);pd.appendChild(bt);});
+}
+function options(blank,a,b){
+  const p=a*b,x=[a,b,p][blank];let c,first=[];
+  if(blank===2){
+    c=[a*(b+1),a*(b-1),(a+1)*b,(a-1)*b,a+b,p+1,p-1,p+10,p-10,p+2,p+3,p+4];
+    if(p>=10){const sw=(p%10)*10+Math.floor(p/10);if(sw!==p&&sw>0)first.push(sw);}
+  }else{
+    const y=blank===0?b:a;
+    c=[x+1,x-1,x+2,x-2,y,10-x,x+3,x-3];
+  }
+  const ok=n=>Number.isInteger(n)&&n!==x&&(blank===2?n>0:(n>=1&&n<=9));
+  const seen=new Set(first.filter(ok));
+  shuffle(c).forEach(n=>{if(ok(n))seen.add(n);});
+  const res=[...first.filter(ok)];
+  [...seen].forEach(n=>{if(!res.includes(n)&&res.length<3)res.push(n);});
+  res.push(x);
+  return shuffle(res);
+}
+function pop(){const m=$("mascot");m.classList.add("pop");setTimeout(()=>m.classList.remove("pop"),250);}
+function pick(n,btn){
+  if(locked)return;
+  const q=qs[idx];
+  if(n===ans){
+    locked=true;right++;
+    blankEl.textContent=n;blankEl.classList.add("ok");
+    $("cnt").textContent="第 "+(idx+1)+" / "+qs.length+" 题　🥕 "+right;
+    $("mascot").textContent="😋";pop();
+    $("msg").style.color="var(--ok)";$("msg").textContent=kou(q.a,q.b);
+    speak(kou(q.a,q.b));
+    setTimeout(()=>{idx++;idx<qs.length?nextQ():finish();},1100);
+  }else{
+    tries++;btn.disabled=true;
+    $("mascot").textContent="🙈";pop();
+    const e=$("eq");e.classList.remove("shake");void e.offsetWidth;e.classList.add("shake");
+    if(tries>=2){
+      locked=true;wrongs.push(q);
+      blankEl.textContent=ans;blankEl.classList.add("bad");
+      $("msg").style.color="var(--bad)";$("msg").textContent=q.a+" × "+q.b+" = "+(q.a*q.b)+"　请大声背出：“"+kou(q.a,q.b)+"”";
+      speak(kou(q.a,q.b));
+      setTimeout(()=>{idx++;idx<qs.length?nextQ():finish();},4000);
+    }else{
+      $("msg").style.color="var(--bad)";$("msg").textContent="再想一想～";
+    }
+  }
+}
+function finish(){
+  $("quiz").classList.add("hide");$("end").classList.remove("hide");
+  const n=qs.length,st=right===n?3:right>=n*.8?2:right>=n*.5?1:0;
+  $("emascot").textContent=st===3?"🥳":st>=1?"😊":"🐰";
+  $("stars").textContent="⭐".repeat(st)+"☆".repeat(3-st);
+  $("score").textContent="答对 "+right+" / "+n+" 题，拔到 "+right+" 根萝卜";
+  $("comment").textContent=right===n?"全对！小兔吃得饱饱的！":st===2?"真棒，再接再厉！":st===1?"不错，错的口诀再读几遍。":"别着急，多读几遍口诀再来。";
+  $("redo").classList.toggle("hide",!wrongs.length);
+  const w=$("wrong");w.innerHTML="";
+  if(wrongs.length){w.innerHTML="<b>请大声背出这些口诀：</b>";
+    wrongs.forEach(q=>{const d=document.createElement("div");d.textContent=q.a+" × "+q.b+" = "+(q.a*q.b)+"　"+kou(q.a,q.b);w.appendChild(d);});}
+  const d=load();d.n=(d.date===today()?d.n:0)+1;d.date=today();d.stars=(d.stars||0)+st;save(d);
+}
+
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hide")||!/^[1-4]$/.test(e.key))return;
+  const bt=$("pad").children[Number(e.key)-1];if(bt&&!bt.disabled)bt.click();
+});
+$("go").onclick=()=>start();
+$("redo").onclick=()=>start(true);
+$("again").onclick=()=>{$("end").classList.add("hide");$("start").classList.remove("hide");showStat();};
+drawChips();showStat();
+</script>
+</body>
+</html>
