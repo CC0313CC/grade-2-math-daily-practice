@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>分香蕉 · 巩固练习</title>
+<style>
+:root{--bg:#fff8e9;--card:#fff;--ink:#3c3022;--mut:#87745b;--line:#f0e2c8;--yl:#fff2c9;--or:#f28c3c;--gr:#2f9c78;--grl:#def5ec;--wn:#b4632f;--wnl:#fff0e1;--bl:#e4f1fc;--blt:#2b5e8c;--N:#3e82c4;--D:#f28c3c;--Q:#2f9c78;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b16;--card:#2a2720;--ink:#f3efe4;--mut:#b5a98f;--line:#4a4332;--yl:#4a4020;--grl:#1f4a3a;--wnl:#4a3320;--wn:#ffb27a;--bl:#1f3347;--blt:#9cc9f0;--N:#7ab8ff}}
+:root[data-theme="dark"]{--bg:#1d1b16;--card:#2a2720;--ink:#f3efe4;--mut:#b5a98f;--line:#4a4332;--yl:#4a4020;--grl:#1f4a3a;--wnl:#4a3320;--wn:#ffb27a;--bl:#1f3347;--blt:#9cc9f0;--N:#7ab8ff}
+*{box-sizing:inherit}html,body{margin:0}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:20px}
+.wrap{max-width:820px;margin:0 auto;padding:12px 14px 30px}
+h1{font-size:26px;text-align:center;margin:2px 0 8px}
+.dots{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--line)}.dot.now{background:var(--or)}.dot.ok{background:var(--gr)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.story{font-size:22px;font-weight:700;margin:0 0 10px}
+.pic{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:6px}
+.grp{background:var(--yl);border-radius:14px;padding:4px 10px;text-align:center;font-size:20px;line-height:1.3}
+.grp small{display:block;color:var(--mut);font-size:13px}
+.eq{display:flex;justify-content:center;align-items:center;gap:14px;font-size:54px;font-weight:800;margin:10px 0}
+.num.hit{background:var(--yl);border:4px solid var(--or);border-radius:16px;padding:0 16px;animation:pl 1.2s infinite}
+@keyframes pl{50%{box-shadow:0 0 0 8px rgba(242,140,60,.25)}}
+.ask{font-size:21px;font-weight:800;margin:12px 0 6px}
+.ask i{font-style:normal;background:var(--or);color:#fff;border-radius:8px;padding:0 8px;margin-right:6px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.row{flex-direction:row;flex-wrap:wrap}
+.opt{font:inherit;font-size:21px;font-weight:700;text-align:left;min-height:48px;padding:8px 16px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.opts.row .opt{flex:1;text-align:center}
+.opt.right{background:var(--gr);border-color:var(--gr);color:#fff}.opt.wrong{background:var(--wnl);border-color:var(--wn);color:var(--wn)}
+.opt:disabled{cursor:default}
+.fb{margin-top:10px;padding:10px 14px;border-radius:14px;font-weight:700;font-size:18px}
+.fb.ok{background:var(--grl);color:var(--gr)}.fb.warn{background:var(--wnl);color:var(--wn)}
+.go{font:inherit;font-size:20px;font-weight:800;min-height:48px;padding:8px 24px;border-radius:14px;border:0;background:var(--gr);color:#fff;cursor:pointer;margin-top:12px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.cmp div{border-radius:14px;padding:10px 12px;font-size:18px}
+.cmp .d{background:var(--wnl);border:2px solid var(--D)}.cmp .q{background:var(--grl);border:2px solid var(--Q)}
+.cmp b{display:block;font-size:22px}
+.big{text-align:center;font-size:28px;font-weight:800;margin:6px 0}
+.sect{text-align:center;color:var(--mut);font-weight:800;font-size:16px;margin-bottom:6px}
+.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0}
+.dz{border:3px dashed var(--line);border-radius:16px;padding:8px;text-align:center;min-height:96px}
+.dz .zt{font-weight:800;font-size:20px}.dz .zb{margin-top:6px;font-size:18px;font-weight:700;min-height:28px;color:var(--mut)}
+.dz.full{border-style:solid;border-color:var(--gr);background:var(--grl)}.dz.full .zb{color:var(--gr)}
+.znum{text-align:center;font-size:34px;font-weight:800;margin-bottom:4px}
+.dz{margin-bottom:8px;min-height:56px}
+.dz.over{border-color:var(--or);background:var(--yl)}.dz.zN .zt{color:var(--N)}.dz.zD .zt{color:var(--D)}.dz.zQ .zt{color:var(--Q)}
+.tray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0;min-height:56px}
+.dc{font:inherit;font-size:19px;font-weight:800;padding:10px 16px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:grab;touch-action:none;user-select:none}
+.dc.sel{border-color:var(--or);background:var(--yl)}.dc.dragging{opacity:.3}.dc.ghost{position:fixed;z-index:99;pointer-events:none;box-shadow:0 8px 14px rgba(0,0,0,.25);transform:rotate(-4deg)}
+.shake{animation:sk .35s}@keyframes sk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+button{touch-action:manipulation}
+.tray:empty{display:none}
+@media(max-width:560px){
+  body{font-size:18px}.wrap{padding:8px 10px 24px}h1{font-size:22px}
+  .card{padding:12px;border-radius:16px}
+  .story{font-size:19px;margin-bottom:6px}
+  .grp{font-size:15px;padding:2px 7px}.grp small{font-size:11px}.pic{gap:5px}
+  .eq{font-size:38px;gap:8px;margin:6px 0}.num.hit{padding:0 10px;border-width:3px}
+  .ask{font-size:18px}
+  .opt{font-size:18px;min-height:52px;padding:8px 12px}
+  .opts.row .opt{padding:8px 4px}
+  .go{width:100%;font-size:20px;min-height:52px}
+  .cmp{grid-template-columns:1fr}
+  .zones{display:flex;flex-direction:column;gap:8px}
+  .zc{display:grid;grid-template-columns:44px 1fr 1.5fr;gap:6px;align-items:stretch}
+  .zc .znum{margin:0;font-size:30px;align-self:center}
+  .zc .dz{margin:0;min-height:58px;padding:4px;display:flex;align-items:center;justify-content:center;border-width:2px}
+  .zc .dz .zb{margin:0;font-size:15px;min-height:0}
+  .tray{position:sticky;bottom:env(safe-area-inset-bottom,0px);background:var(--card);border-top:2px solid var(--line);margin:10px -12px -12px;padding:8px;gap:8px;border-radius:0 0 14px 14px;z-index:5}
+  .dc{font-size:16px;padding:10px 12px;min-height:46px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🍌 分香蕉 · 巩固练习</h1>
+  <div class="dots" id="dots"></div>
+  <div id="main"></div>
+</div>
+<script>
+const ROLE={N:"被除数",D:"除数",Q:"商"};
+const MEAN={
+  share:{N:"一共有多少根香蕉",D:"平均分给几只猴子",Q:"每只猴子分到几根"},
+  pack:{N:"一共有多少根香蕉",D:"每盘装几根",Q:"一共装了几盘"}
+};
+const HINT={N:"被除数是要分的总数。",D:"除数是“怎么分”的那个数。",Q:"商是分完以后得到的结果。"};
+const QS=[
+ {type:"two",k:"share",T:12,D:3,Q:4,t:"D"},
+ {type:"two",k:"pack",T:12,D:3,Q:4,t:"Q"},
+ {type:"drag",k:"pack",T:15,D:5,Q:3},
+ {type:"drag",k:"share",T:12,D:6,Q:2},
+ {type:"choice",q:"下面哪个问题可以用 12 ÷ 6 来解决？",eq:"12 ÷ 6",
+  opts:[["12 根香蕉，每 6 根装一盘，可以装几盘？",1],["12 根香蕉，吃掉 6 根，还剩几根？",0],["小猴有 12 根香蕉，又买来 6 根，一共有几根？",0],["每只小猴分 6 根，2 只小猴一共分几根？",0]],
+  why:"把 12 根按每 6 根一份来分，用除法 12 ÷ 6。吃掉用减法，又买来用加法，一共分几根用乘法。"},
+ {type:"choice",q:"下面哪个问题可以用 18 ÷ 3 来解决？",eq:"18 ÷ 3",
+  opts:[["18 个苹果，平均分给 3 个小朋友，每人分几个？",1],["18 个苹果，吃了 3 个，还剩几个？",0],["3 个小朋友每人 18 个苹果，一共有几个？",0]],
+  why:"把 18 个平均分成 3 份，用除法 18 ÷ 3。吃了用减法，每人几个、一共几个用乘法。"}
+];
+const SECT={two:"辨一辨",drag:"拖一拖",choice:"选一选"};
+const $=id=>document.getElementById(id);
+let i=0,stage=0,fb="",wrongA=null,wrongB=null,stars=0,tr={},optsB=null,dg=null,ch=null;
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+const maxScore=QS.reduce((n,q)=>n+(q.type==="two"?2:1),0);
+const full=(q,r)=>({N:"一共有 "+q.T+" 根香蕉",D:q.k==="share"?"平均分给 "+q.D+" 只猴子":"每盘装 "+q.D+" 根",Q:q.k==="share"?"每只猴子分到 "+q.Q+" 根":"一共装了 "+q.Q+" 盘"})[r];
+const story=q=>q.k==="share"?`${q.T} 根香蕉，平均分给 ${q.D} 只猴子，每只猴子分到 ${q.Q} 根。`:`${q.T} 根香蕉，每 ${q.D} 根装一盘，一共装了 ${q.Q} 盘。`;
+function pic(q){
+  const n=q.k==="share"?q.D:q.Q,per=q.k==="share"?q.Q:q.D,ic=q.k==="share"?"🐵":"🍽️";
+  return Array.from({length:n},()=>`<div class="grp">${ic}<br>${"🍌".repeat(per)}</div>`).join("");
+}
+function mark(key,ok){if(tr[key]===undefined){tr[key]=ok;if(ok)stars++}}
+function enter(){
+  stage=0;fb="";wrongA=wrongB=null;dg=null;ch=null;const q=QS[i];if(!q)return;
+  if(q.type==="drag")dg={placed:{},sel:null,bad:false,tray:shuf(["n:N","n:D","n:Q","m:N","m:D","m:Q"])};
+  if(q.type==="choice")ch={opts:shuf(q.opts),wrong:[]};
+}
+function dots(){$("dots").innerHTML=QS.map((_,j)=>`<span class="dot ${j<i?"ok":j===i?"now":""}"></span>`).join("")}
+function eqHTML(q,hit){
+  return `<div class="eq"><span class="num ${hit==="N"?"hit":""}">${q.T}</span>÷<span class="num ${hit==="D"?"hit":""}">${q.D}</span>=<span class="num ${hit==="Q"?"hit":""}">${q.Q}</span></div>`;
+}
+function nextBtn(){return stage>1?`<button class="go" data-next>${i===QS.length-1?"看结果 →":"下一题 →"}</button>`:""}
+function render(){
+  dots();
+  if(i>=QS.length)return result();
+  const q=QS[i];let h=`<div class="sect">${SECT[q.type]}　第 ${i+1} / ${QS.length} 题</div><div class="card">`;
+  if(q.type==="two"){
+    h+=`<p class="story">${story(q)}</p><div class="pic">${pic(q)}</div>${eqHTML(q,q.t)}`;
+    h+=`<div class="ask"><i>①</i>圈出来的 <b>${q[q.t]}</b> 叫什么？</div><div class="opts row">`+
+      ["N","D","Q"].map(r=>`<button class="opt ${stage>0&&r===q.t?"right":wrongA===r?"wrong":""}" data-a="${r}" ${stage>0?"disabled":""}>${ROLE[r]}</button>`).join("")+`</div>`;
+    if(stage>=1)h+=`<div class="ask"><i>②</i>它在这道题里表示什么？</div><div class="opts">`+
+      optsB.map(r=>`<button class="opt ${stage>1&&r===q.t?"right":wrongB===r?"wrong":""}" data-b="${r}" ${stage>1?"disabled":""}>${MEAN[q.k][r]}</button>`).join("")+`</div>`;
+  }else if(q.type==="drag"){
+    const num={N:q.T,D:q.D,Q:q.Q},txt=id=>id[0]==="n"?ROLE[id.slice(2)]:full(q,id.slice(2));
+    h+=`<p class="story">${story(q)}</p><div class="pic">${pic(q)}</div>${eqHTML(q)}`+
+      `<div class="ask"><i>★</i>把名字卡和含义卡，都拖到对应的数字下面（也可以先点卡片，再点框）</div><div class="zones">`+
+      ["N","D","Q"].map(r=>`<div class="zc"><div class="znum">${num[r]}</div>`+
+        ["n","m"].map(t=>{const id=t+":"+r;return `<div class="dz${dg.placed[id]?" full":""}" data-zone="${id}"><div class="zb">${dg.placed[id]?txt(id):(t==="n"?"名字":"含义")}</div></div>`}).join("")+`</div>`).join("")+
+      `</div><div class="tray">`+dg.tray.filter(id=>!dg.placed[id]).map(id=>`<button class="dc${dg.sel===id?" sel":""}" data-card="${id}">${txt(id)}</button>`).join("")+`</div>`;
+  }else{
+    h+=`<p class="story">${q.q}</p><div class="opts">`+
+      ch.opts.map((o,j)=>`<button class="opt ${stage>1&&o[1]?"right":ch.wrong.includes(j)?"wrong":""}" data-c="${j}" ${stage>1?"disabled":""}>${"ABCD"[j]}．${o[0]}</button>`).join("")+`</div>`;
+  }
+  if(fb)h+=`<div class="fb ${stage>1?"ok":"warn"}">${fb}</div>`;
+  $("main").innerHTML=h+nextBtn()+`</div>`;
+}
+function pickA(r){
+  const q=QS[i];
+  if(r===q.t){mark(i+"a",true);stage=1;wrongA=null;optsB=shuf(["N","D","Q"]);fb=""}
+  else{mark(i+"a",false);wrongA=r;fb="再想想～看位置：÷ 前面是被除数，÷ 后面是除数，= 后面是商。"}
+  render();
+}
+function pickB(r){
+  const q=QS[i];
+  if(r===q.t){mark(i+"b",true);stage=2;wrongB=null;fb="✅ 对啦！"+q[q.t]+" 是"+ROLE[q.t]+"，"+full(q,q.t)+"。"}
+  else{mark(i+"b",false);wrongB=r;fb="再想想～"+HINT[q.t]}
+  render();
+}
+function pickC(j){
+  const q=QS[i],o=ch.opts[j];
+  if(o[1]){mark(i+"c",ch.wrong.length===0);stage=2;fb="✅ 对啦！"+q.why}
+  else{ch.wrong.push(j);mark(i+"c",false);fb="再想想～把总数平均分，或者看总数里有几个几，才用除法。"}
+  render();
+}
+function place(c,z){
+  const q=QS[i];if(dg.placed[z])return;
+  const [ct,cr]=c.split(":"),[zt,zr]=z.split(":");let ok=false;
+  if(ct!==zt){dg.bad=true;fb=ct==="n"?"名字卡要放在“名字”框里哦。":"含义卡要放在“含义”框里哦。"}
+  else if(cr===zr){ok=true;dg.placed[c]=true;fb="";
+    if(Object.keys(dg.placed).length===6){stage=2;mark(i+"d",!dg.bad);fb="✅ 全对！"+q.T+" ÷ "+q.D+" = "+q.Q+"："+full(q,"D")+"，所以 "+q.D+" 是除数；"+full(q,"Q")+"，所以 "+q.Q+" 是商。"}}
+  else{dg.bad=true;fb=ct==="n"?"这个数不是“"+ROLE[cr]+"”。提示：÷ 前面是被除数，÷ 后面是除数，= 后面是商。":"这张含义卡不属于这个数。"+HINT[zr]}
+  dg.sel=null;render();
+  if(!ok){const el=document.querySelector('[data-zone="'+z+'"]');if(el)el.classList.add("shake")}
+}
+/* 拖拽 */
+let drag=null;
+function pt(e){return {x:e.clientX,y:e.clientY-(e.pointerType==="touch"?56:0)}}
+function ghost(x,y){drag.g.style.left=(x-60)+"px";drag.g.style.top=(y-24)+"px"}
+function stop(){if(!drag)return;drag.g.remove();document.querySelectorAll(".over").forEach(e=>e.classList.remove("over"));
+  document.removeEventListener("pointermove",mv);document.removeEventListener("pointerup",up);document.removeEventListener("pointercancel",stop);drag=null}
+function mv(e){if(!drag)return;e.preventDefault();if(Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y)>6)drag.moved=true;{const p=pt(e);ghost(p.x,p.y);}
+  document.querySelectorAll(".over").forEach(x=>x.classList.remove("over"));
+  const p=pt(e),u=document.elementFromPoint(p.x,p.y),z=u&&u.closest("[data-zone]");if(z)z.classList.add("over")}
+function up(e){
+  const D=drag,p=pt(e),u=document.elementFromPoint(p.x,p.y),z=u&&u.closest("[data-zone]");stop();
+  if(!D.moved){dg.sel=dg.sel===D.r?null:D.r;render();return}
+  if(z)place(D.r,z.dataset.zone);else render();
+}
+document.addEventListener("pointerdown",e=>{
+  const c=e.target.closest("[data-card]");if(!c)return;e.preventDefault();
+  const g=c.cloneNode(true);g.classList.add("ghost");document.body.appendChild(g);c.classList.add("dragging");
+  drag={r:c.dataset.card,g,x:e.clientX,y:e.clientY,moved:false};{const p=pt(e);ghost(p.x,p.y);}
+  document.addEventListener("pointermove",mv,{passive:false});document.addEventListener("pointerup",up);document.addEventListener("pointercancel",stop);
+});
+function result(){
+  $("main").innerHTML=`<div class="card"><div class="big">${"⭐".repeat(Math.max(1,Math.round(stars/maxScore*5)))}</div>
+  <div class="big">一次就答对 ${stars} / ${maxScore} 个</div>
+  <p style="text-align:center;font-weight:700">同样是 12 ÷ 3 = 4，故事不同，3 和 4 的意思也不同：</p>
+  <div class="cmp"><div class="d"><b>除数：怎么分</b>平均分给 3 只猴子<br>每盘装 3 根</div>
+  <div class="q"><b>商：分完的结果</b>每只猴子分到 4 根<br>一共装了 4 盘</div></div>
+  <div style="text-align:center"><button class="go" data-again>↺ 再练一次</button></div></div>`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,[data-zone]");if(!b)return;
+  if(b.dataset.a&&stage===0)pickA(b.dataset.a);
+  else if(b.dataset.b&&stage===1)pickB(b.dataset.b);
+  else if(b.dataset.c!==undefined&&stage<2)pickC(+b.dataset.c);
+  else if(b.dataset.zone&&dg&&dg.sel&&stage<2)place(dg.sel,b.dataset.zone);
+  else if("next" in b.dataset){i++;enter();render()}
+  else if("again" in b.dataset){i=0;stars=0;tr={};enter();render()}
+});
+enter();render();
+</script>
+</body>
+</html>
